@@ -1,0 +1,9 @@
+<%= form_for @upload, html: { multipart: true, class: "dropzone", id: 'upload_inp_files_form' } do |f| %>
+  <div class="fallback">
+    <%= f.file_field :file %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $('document').ready(Upload.init);
+</script>
