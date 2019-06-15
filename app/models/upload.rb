@@ -3,5 +3,5 @@ class Upload < ApplicationRecord
 
   validates_attachment :file, presence: true,
     content_type: { content_type: 'text/plain' },
-    extension: 'ipn'
+    extension: 'inp'
 end
