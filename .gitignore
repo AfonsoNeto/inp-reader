@@ -1,5 +1,7 @@
 *.rbc
+*.keep
 capybara-*.html
+bin/*
 .rspec
 /log
 /tmp
