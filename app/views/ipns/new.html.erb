@@ -1,3 +1,5 @@
-<%= form_tag ipns_path, {multipart: true, class: "dropzone"} do |f| %>
-  <%= file_field_tag :file %>
+<%= form_for @ipn, html: { multipart: true, class: "dropzone", id: 'upload_ipn_files_form' } do |f| %>
+  <div class="fallback">
+    <%= f.file_field :file %>
+  </div>
 <% end %>
