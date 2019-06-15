@@ -1,0 +1,2 @@
+class Compliance < Inp
+end

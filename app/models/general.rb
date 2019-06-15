@@ -1,0 +1,2 @@
+class General < Inp
+end
