@@ -2,7 +2,7 @@ $("document").ready(function() {
   Dropzone.autoDiscover = false;
 
   $("#upload_ipn_files_form").dropzone({
-      paramName: "ipn[file]",
+      paramName: "upload[file]",
       success: function(file, response){
         alert('Your file is being processed...');
       }
