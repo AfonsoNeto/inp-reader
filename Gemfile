@@ -62,6 +62,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rb-readline'
   gem 'mailcatcher'
+  gem 'awesome_print'
 end
 
 group :test do
