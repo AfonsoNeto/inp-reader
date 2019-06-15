@@ -1,12 +1,6 @@
-class InpParser
-  module SEPARATORS
-    COMMENT         = '$'
-    END_OF_OBJECT   = '..'
-    ATTR_DEFINITION = '='
-  end
-
+class Parser
   def initialize file
-    return unless file
+    return nil unless file
     @file = file
   end
 
@@ -22,9 +16,10 @@ class InpParser
     current_inp_object = OpenStruct.new
 
     File.readlines(file).each do |line|
+      line = Line.new(line)
       line.strip!
 
-      unless line_is_a_comment?(line)
+      unless line.comment?(line)
         line.strip!
 
         # Can I guarantee `eql?` instead of `include?` here? 🤔
@@ -43,7 +38,7 @@ class InpParser
         # The current line is the object name and type
         if current_inp_object.name.blank?
           current_inp_object.name = attr_name
-          current_inp_object.type = attr_value
+          current_inp_object.inp_object_type = attr_value
 
         # It means the curent line is an attribute definition
         else
