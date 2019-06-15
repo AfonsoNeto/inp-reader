@@ -1,2 +1,0 @@
-class Ipn < ApplicationRecord
-end
