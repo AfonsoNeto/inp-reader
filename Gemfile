@@ -35,6 +35,7 @@ gem "paperclip"
 gem 'dropzonejs-rails'
 gem 'jquery-rails'
 gem 'pry-rails'
+gem 'sidekiq'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -60,6 +61,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rb-readline'
+  gem 'mailcatcher'
 end
 
 group :test do
