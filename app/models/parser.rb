@@ -13,37 +13,26 @@ class Parser
   end
 
   def for_each_object_described_in file, &block
-    current_inp_object = OpenStruct.new
+    current_inp = InpFile.new
 
-    File.readlines(file).each do |line|
-      line = Line.new(line)
-      line.strip!
+    File.readlines(file).each do |file_line|
+      line = Line.new(file_line)
 
-      unless line.comment?(line)
-        line.strip!
-
-        # Can I guarantee `eql?` instead of `include?` here? 🤔
-        if line.include?(SEPARATORS::END_OF_OBJECT)
-          yield current_inp_object
-          current_inp_object = OpenStruct.new
+      unless line.comment?
+        if line.end_of_object_description?
+          yield current_inp
+          current_inp = InpFile.new
         end
 
-        next if line.strip.empty?
-        attr_name, attr_value = line.split(SEPARATORS::ATTR_DEFINITION)
-
-        next if [attr_name, attr_value].any?(&:blank?)
-        attr_name.strip!.gsub!("\"", '')
-        attr_value.strip!.gsub!("\"", '')
+        next if line.empty?
 
         # The current line is the object name and type
-        if current_inp_object.name.blank?
-          current_inp_object.name = attr_name
-          current_inp_object.inp_object_type = attr_value
+        if current_inp.name.blank?
+          current_inp = InpFile.new(line.get_inp_object_header_formatted)
 
         # It means the curent line is an attribute definition
         else
-          attr_name = attr_name.underscore.parameterize
-          current_inp_object.send("#{attr_name}=", attr_value)
+          current_inp[line.attr] = line.value
         end
       end
     end
