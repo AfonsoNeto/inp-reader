@@ -30,10 +30,6 @@ class Parser::Line
     @body.empty? || [@attr, @value].any?(&:blank?)
   end
 
-  def get_inp_object_header_formatted
-    instance_values.slice("name", "inp_object_type").symbolize_keys
-  end
-
   private
 
     def body_splitted_and_filtered
