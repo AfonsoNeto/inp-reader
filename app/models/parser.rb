@@ -1,21 +1,23 @@
 class Parser
   def initialize file
     return nil unless file
-    @file = file
+    @file_as_array = file
   end
 
   def get_all
-    for_each_object_described_in(@file) do |inp_object|
-      ap inp_object
+    all = []
+
+    for_each_object_described do |inp_object|
+      all << inp_object.inspect
     end
 
-    nil
+    all
   end
 
-  def for_each_object_described_in file, &block
+  def for_each_object_described &block
     current_inp = InpObject.new
 
-    File.readlines(file).each do |file_line|
+    @file_as_array.each do |file_line|
       line = Line.new file_line
 
       current_inp.populate_with(line, block)

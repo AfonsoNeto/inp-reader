@@ -7,6 +7,7 @@
   <h1><%= @upload.file_file_name %></h1>
   Your .inp file named <strong><%= @upload.file_file_name %></strong> uploaded on <strong><%= @upload.created_at.strftime("%m/%d/%Y - %H:%Sh") %></strong> has been processed.
 
-  Here's the results: ...
+  Here's the results:
+  <%= debug @result %>
 </body>
 </html>

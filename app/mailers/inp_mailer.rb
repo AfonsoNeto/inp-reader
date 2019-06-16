@@ -1,6 +1,7 @@
 class InpMailer < ApplicationMailer
-  def notify upload_id
-    @upload = Upload.find_by(id: upload_id)
+  def notify
+    @upload = Upload.find(params[:upload_id])
+    @result = params[:result]
     mail(to: 'test@mail.com', subject: 'Inp file processing results')
   end
 end
