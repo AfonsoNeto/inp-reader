@@ -44,7 +44,14 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+  config.action_mailer.smtp_settings = {
+    :user_name => 'b0d51e12ebf3c4',
+    :password => 'fda9c25478fa47',
+    :address => 'smtp.mailtrap.io',
+    :domain => 'smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
