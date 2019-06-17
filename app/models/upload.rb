@@ -11,9 +11,10 @@ class Upload < ApplicationRecord
       key: "uploads/files/#{self.id}/#{self.file_file_name}"
     )
 
-    resp.body.string.split("\n")
+    resp.body.string.split("\n") rescue nil
   end
 
+  private
 
     def init_s3
       local_credentials = Rails.application.credentials[:aws]
