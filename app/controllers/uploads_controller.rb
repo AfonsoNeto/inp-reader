@@ -26,7 +26,6 @@ class UploadsController < ApplicationController
   end
 
   def update
-
     if @upload.update(upload_params)
       InpWorker.perform_async(@upload.id)
       render json: { message: "success", fileId: @upload.id }, status: :ok
