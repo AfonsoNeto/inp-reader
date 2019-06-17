@@ -1,17 +1,29 @@
 class Parser
-  def initialize file
+  def initialize file:, upload_id:
     return nil unless file
     @file_as_array = file
+    @upload_id = upload_id
   end
 
-  def get_all
-    all = []
+  def parse_while_storing_on_redis!
+    # Stored as:
+    # {
+    #   UPLOAD_ID: {
+    #     TYPE_1: [object_1, object_2, 3] ...,
+    #     TYPE_2: [object_1, object_2, 3] ...,
+    #   }
+    # }
+    to_be_stored = {@upload_id => {}}
 
-    for_each_object_described do |inp_object|
-      all << inp_object.inspect
+    self.for_each_object_described do |inp_object|
+      obj_type  = inp_object.inp_object_type
+      obj_attrs = inp_object.to_h
+
+      to_be_stored[@upload_id][obj_type] ||= Array.new
+      to_be_stored[@upload_id][obj_type] << obj_attrs
     end
 
-    all
+    REDIS.set(@upload_id, to_be_stored.to_json)
   end
 
   def for_each_object_described &block
