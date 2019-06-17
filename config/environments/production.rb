@@ -63,7 +63,8 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "ipn-reader_#{Rails.env}"
 
-  sg_credentials = Rails.application.credentials[:send_grid]
+  aws_credentials = Rails.application.credentials[:aws]
+  sg_credentials  = Rails.application.credentials[:send_grid]
 
   config.action_mailer.perform_caching = false
   config.action_mailer.smtp_settings = {
@@ -74,6 +75,17 @@ Rails.application.configure do
     :port => 465,
     :authentication => :plain,
     :enable_starttls_auto => true
+  }
+
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_credentials: {
+      bucket:            aws_credentials[Rails.env.to_sym][:bucket_name],
+      access_key_id:     aws_credentials[:access_key_id],
+      secret_access_key: aws_credentials[:secret_access_key],
+      s3_region:         aws_credentials[:s3_region],
+      s3_host_name:      aws_credentials[:s3_host_name]
+    }
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
