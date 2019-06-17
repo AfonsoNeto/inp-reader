@@ -1,5 +1,6 @@
 class InpWorker
   include Sidekiq::Worker
+  sidekiq_options retry: false
 
   def perform upload_id
     upload = Upload.find(upload_id)
