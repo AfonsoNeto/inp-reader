@@ -8,6 +8,12 @@
   Your .inp file named <strong><%= @upload.file_file_name %></strong> uploaded on <strong><%= @upload.created_at.strftime("%m/%d/%Y - %H:%Sh") %></strong> has been processed.
 
   Here's the results:
-  <%= debug @result %>
+  <ul>
+  <% @results.each do |type, records| %>
+    <li><%= type %> => <%= "#{records.size} #{'record'.pluralize(records.size)}" %> </li>
+  <% end %>
+  </ul>
+
+  Form more detailed results, please visit: <%= link_to 'Upload details', upload_url(@upload.id) %>
 </body>
 </html>
