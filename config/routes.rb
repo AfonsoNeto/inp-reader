@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
   root 'uploads#new'
-  # resources :inp, only: [:show], constraints: {format: [:html, :inp]}
-  resources :uploads, only: [:new, :create, :update]
+  resources :uploads, except: [:destroy]
 end

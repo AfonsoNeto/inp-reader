@@ -9,8 +9,8 @@ class Parser
     # Stored as:
     # {
     #   UPLOAD_ID: {
-    #     TYPE_1: [object_1, object_2, 3] ...,
-    #     TYPE_2: [object_1, object_2, 3] ...,
+    #     TYPE_1: [object_1, object_2, object_3] ...,
+    #     TYPE_2: [object_1, object_2, object_3] ...,
     #   }
     # }
     to_be_stored = {@upload_id => {}}

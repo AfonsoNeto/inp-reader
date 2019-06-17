@@ -14,6 +14,10 @@ class Upload < ApplicationRecord
     resp.body.string.split("\n") rescue nil
   end
 
+  def records
+    JSON.parse REDIS.get(self.id)
+  end
+
   private
 
     def init_s3

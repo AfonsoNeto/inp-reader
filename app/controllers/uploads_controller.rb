@@ -1,6 +1,14 @@
 class UploadsController < ApplicationController
+  before_action :set_upload, only: [:show, :update]
+
   def new
     @upload = Upload.new
+  end
+
+  def show
+    respond_to do |format|
+      format.html { @records = @upload.records }
+    end
   end
 
   def create
@@ -14,7 +22,6 @@ class UploadsController < ApplicationController
   end
 
   def update
-    @upload = Upload.find(params[:id])
 
     if @upload.update(upload_params)
       InpWorker.perform_async(@upload.id)
@@ -25,6 +32,10 @@ class UploadsController < ApplicationController
   end
 
   private
+
+    def set_upload
+      @upload = Upload.find(params[:id])
+    end
 
     def upload_params
       params.require(:upload).permit(:recipient, :file)
