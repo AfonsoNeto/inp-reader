@@ -19,6 +19,24 @@ class Parser::InpObject < OpenStruct
     end
   end
 
+  def store_on_redis upload_id
+    # Stored as:
+    # {
+    #   UPLOAD_ID: {
+    #     TYPE_1: [object_1, object_2, 3] ...,
+    #     TYPE_2: [object_1, object_2, 3] ...,
+    #   }
+    # }
+    REDIS.set(upload_id, {}) if REDIS.get(upload_id).blank?
+
+    objects_from_upload_id = JSON.parse REDIS.get(upload_id)
+    objects_from_type = objects_from_upload_id.fetch(self.inp_object_type, [])
+    objects_from_type << self.to_h
+    objects_from_upload_id[self.inp_object_type] = objects_from_type
+
+    REDIS.set(upload_id, objects_from_upload_id.to_json)
+  end
+
   protected
 
     def started?
