@@ -63,7 +63,18 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "ipn-reader_#{Rails.env}"
 
+  sg_credentials = Rails.application.credentials[:send_grid]
+
   config.action_mailer.perform_caching = false
+  config.action_mailer.smtp_settings = {
+    :user_name => sg_credentials[:user_name],
+    :password => sg_credentials[:password],
+    :domain => 'inp-reader.herokuapp.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 465,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
