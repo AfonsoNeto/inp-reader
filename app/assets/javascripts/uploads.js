@@ -7,7 +7,9 @@ var Upload = (function($){
     $(_formSelector).dropzone({
       paramName: "upload[file]",
       success: function(file, response){
-        alert('Your file is being processed...');
+        console.dir(file);
+        console.dir(response);
+        // alert('Your file is being processed...');
       }
     });
   }

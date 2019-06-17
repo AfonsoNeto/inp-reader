@@ -44,7 +44,7 @@ class Parser::Line
     end
 
     def typecast_attr!
-      @attr = @attr&.underscore&.parameterize&.to_sym
+      @attr = @attr.to_s.parameterize.underscore.to_sym
     end
 
     def typecast_value!
