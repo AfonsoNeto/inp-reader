@@ -74,7 +74,7 @@ Rails.application.configure do
     :password => sg_credentials[:password],
     :domain => 'inp-reader.herokuapp.com',
     :address => 'smtp.sendgrid.net',
-    :port => 465,
+    :port => 587,
     :authentication => :plain,
     :enable_starttls_auto => true
   }
