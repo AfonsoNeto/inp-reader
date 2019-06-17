@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_17_001645) do
+ActiveRecord::Schema.define(version: 2019_06_17_003447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2019_06_17_001645) do
     t.string "inp_object_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "upload_id"
+    t.index ["upload_id"], name: "index_inps_on_upload_id"
   end
 
   create_table "uploads", force: :cascade do |t|
@@ -31,4 +33,5 @@ ActiveRecord::Schema.define(version: 2019_06_17_001645) do
     t.string "recipient"
   end
 
+  add_foreign_key "inps", "uploads"
 end

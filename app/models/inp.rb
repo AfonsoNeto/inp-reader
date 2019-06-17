@@ -1,4 +1,6 @@
 class Inp < ApplicationRecord
+  belongs_to :upload
+
   KNOWN_TYPES = [
     "COMPLIANCE",
     "CONSTRUCTION",
