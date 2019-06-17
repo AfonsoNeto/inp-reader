@@ -8,6 +8,10 @@ class UploadsController < ApplicationController
   def show
     respond_to do |format|
       format.html { @records = @upload.records }
+      format.inp do
+        file = Parser::File.new(@upload).generate!
+        send_data(file.body, filename: file.name, type: file.type)
+      end
     end
   end
 
